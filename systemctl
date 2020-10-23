@@ -133,7 +133,9 @@ function action_start(){
             makepid="--make-pidfile"
         fi
 
-        [ -f "$EnvironmentFile" ] && source "$EnvironmentFile"
+        if [ -f "$EnvironmentFile" ]; then
+            export "$(grep -v '^#' "$EnvironmentFile" | xargs)"
+        fi
 
         cmd=("/usr/bin/start-stop-daemon --background --start --pidfile $PIDFile $makepid")
 
