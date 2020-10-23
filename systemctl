@@ -134,7 +134,7 @@ function action_start(){
         fi
 
         if [ -f "$EnvironmentFile" ]; then
-            export "$(grep -v '^#' "$EnvironmentFile" | xargs)"
+            eval "$(grep -v '^#' "$EnvironmentFile" | xargs -i echo export {})"
         fi
 
         cmd=("/usr/bin/start-stop-daemon --background --start --pidfile $PIDFile $makepid")
